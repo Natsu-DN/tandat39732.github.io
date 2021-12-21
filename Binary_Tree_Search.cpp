@@ -50,18 +50,46 @@ void LRN(pTree t){
         printf(" %d",t->data);
     }
 }
-//=================================
+//================================
+void DeleteX(pTree &t,int data){
+    if(t==NULL){
+        return;
+    }else{
+        if(data > t->data){
+            DeleteX(t->right,data);
+        }else if(data < t->data){
+            DeleteX(t->left,data);
+        }else{
+            NODE * X = t;
+            if(t->left == NULL){
+                t = t->right;
+            }else if(t->right == NULL){
+                t = t->left;
+            }
+            delete X;
+        }
+    }
+}
+//===============================
+int DemSoNODE(pTree &t){
+    if(t == NULL)
+    return 0;
+    return 1 + DemSoNODE(t->left) + DemSoNODE(t->right);
+}
+//================================
 void menu(pTree t){
     while(true){
         printf("\n");
         printf("\n//==========MENU==============//\n");
         printf("1.Nhap du lieu\n");
         printf("2.Xuat du lieu\n");
+        printf("3.Xoa 1 node X bat ki\n");
+        printf("4.Dem so NODE trong cay\n");
         printf("//=============================//\n");
         int chon;
         printf("Nhap 1 lua chon: ");
         scanf("%d",&chon);
-        if(chon < 1 || chon > 2){
+        if(chon < 1 || chon > 4){
             printf("\nLua chon khong hop le !!!!!");
         }else if(chon == 1){
             int x;
@@ -75,6 +103,13 @@ void menu(pTree t){
             LNR(t);
             printf("\nCAY NHI PHAN THEO LRN: \n");
             LRN(t);
+        }else if(chon == 3){
+            int x;
+            printf("Nhap 1 node X can xoa: ");
+            scanf("%d",&x);
+            DeleteX(t,x);
+        }else if(chon == 4){
+            printf("Co khoang %d so node trong cay",DemSoNODE(t));
         }else{
             break;
         }
