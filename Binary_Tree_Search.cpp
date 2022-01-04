@@ -71,10 +71,27 @@ void DeleteX(pTree &t,int data){
     }
 }
 //===============================
-int DemSoNODE(pTree &t){
+int DemSoNODE(pTree t){
     if(t == NULL)
     return 0;
     return 1 + DemSoNODE(t->left) + DemSoNODE(t->right);
+}
+//================================
+int DemNodeLa(pTree t){
+    if(t == NULL) return 0;
+    int dem = 0;
+    if(t->left == NULL && t->right == NULL) dem = 1;
+        return dem + DemNodeLa(t->left) + 
+                     DemNodeLa(t->right);
+}
+//================================
+void XuatNodeLa(pTree t){
+    if(t != NULL){
+        if(t->left == NULL && t->right == NULL)
+            printf("%d, ",t->data);
+            XuatNodeLa(t->left);
+            XuatNodeLa(t->right);
+    }
 }
 //================================
 void menu(pTree t){
@@ -85,11 +102,12 @@ void menu(pTree t){
         printf("2.Xuat du lieu\n");
         printf("3.Xoa 1 node X bat ki\n");
         printf("4.Dem so NODE trong cay\n");
+        printf("5.Dem node la va Xuat\n");
         printf("//=============================//\n");
         int chon;
         printf("Nhap 1 lua chon: ");
         scanf("%d",&chon);
-        if(chon < 1 || chon > 4){
+        if(chon < 1 || chon > 5){
             printf("\nLua chon khong hop le !!!!!");
         }else if(chon == 1){
             int x;
@@ -110,6 +128,10 @@ void menu(pTree t){
             DeleteX(t,x);
         }else if(chon == 4){
             printf("Co khoang %d so node trong cay",DemSoNODE(t));
+        }else if(chon == 5){
+            printf("So node LA trong cay: %d",DemNodeLa(t));
+            printf("Xuat cac Node LA: ");
+            XuatNodeLa(t);
         }else{
             break;
         }
